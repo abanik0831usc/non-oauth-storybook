@@ -1,0 +1,112 @@
+import { Meta } from '@storybook/addon-docs';
+import Code from './assets/code-brackets.svg';
+import Colors from './assets/colors.svg';
+import Comments from './assets/comments.svg';
+import Direction from './assets/direction.svg';
+import Flow from './assets/flow.svg';
+import Plugin from './assets/plugin.svg';
+import Repo from './assets/repo.svg';
+import StackAlt from './assets/stackalt.svg';
+
+<Meta title="Example/Introduction" />
+
+# Welcome to Intuit Data Exchange Aggregator Integration
+
+Intuit widget **passes** the following data on `onIframeLoad`
+
+```
+{
+	theme: string,
+	locale: string,
+}
+```
+
+<h3>Expected payload from Aggregator to Intuit</h3>
+
+`Authentication` screen:
+
+```
+{
+	enableSecondaryButton: true| false,
+	enablePrimaryButton: true| false,
+	isSecondaryButtonVisible: true| false,
+	height: string, // height of iframe window
+	width: string, // width of iframe window
+	screen <string>: 'authentication'
+}
+```
+
+`Recaptcha` screen:
+
+```
+{
+	enableSecondaryButton: true| false,
+	enablePrimaryButton: true| false,
+	height: string, // height of iframe window
+	width: string, // width of iframe window
+	screen <string>: 'recaptcha'
+}
+```
+
+`MFA` screen:
+
+```
+{
+	enablePrimaryButton: true| false,
+	primaryButtonContent: string,
+	height: string, // height of iframe window
+	width: string, // width of iframe window
+	screen <string>: 'MFA'
+}
+```
+
+`Connecting` screen:
+
+```
+{
+	isConnectingScreen: true,
+	height: string, // height of iframe window
+	width: string, // width of iframe window
+	screen <string>: 'connecting'
+}
+```
+
+`Success` screen:
+
+```
+{
+	response_token: string,
+	screen <string>: 'success'
+}
+```
+
+`Error` screen:
+
+```
+{
+	error: Object {code, reason, other details},
+	height: string, // height of iframe window
+	width: string, // width of iframe window
+	screen <string>: 'error'
+}
+```
+
+<h3>Payload from Widgets to Aggregator</h3>
+
+`onPrimaryButtonClick` (Continue):
+
+```
+navigate<string>: 'forward',
+screen: 'auth' // pass current screen name
+```
+
+`onSecondaryButtonClick` (Back):
+
+```
+navigate<string>: 'back',
+screen: 'auth' // pass current screen name
+```
+
+```
+
+```
