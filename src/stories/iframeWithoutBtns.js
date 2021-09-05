@@ -144,7 +144,6 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 		postIframeMessageToAggregator(idxMessage)
 	}
 
-	// src="httpw://non-oauth-sage.vercel.app/"
 	return (
 		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
@@ -157,7 +156,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 					title={"my awesome iframe"}
 					onLoad={handleIframeOnLoad}
 					ref={iframeRef}
-					src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
+					src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
 					frameBorder="0"
 					scrolling="no"
 				/>
