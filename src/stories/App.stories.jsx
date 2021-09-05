@@ -1,10 +1,11 @@
 import React from 'react';
+import App from '../App';
+import AppTwo from '../AppTwo';
 
-import { Iframe } from './iframe';
 
 export default {
-	title: 'Example/Iframe',
-	component: Iframe,
+	title: 'Example/App',
+	component: App,
 	argTypes: {
 		theme: {
 			options: ['sbg2', 'mint', 'ck', 'intuit', 'ctg'],
@@ -18,9 +19,13 @@ export default {
 	}
 };
 
-const Template = (args) => <Iframe {...args} />;
+const Template = (args) => <App {...args} />;
 
-export const IFrameWithBtns = Template.bind({});
+const TemplateWithoutBtn = (args) => <AppTwo {...args} />;
+
+export const AppWithBtns = Template.bind({});
+
+export const AppWithoutBtns = TemplateWithoutBtn.bind({})
 // LoggedIn.args = {
 // 	theme: {
 // 		options: ['primary', 'secondary'],

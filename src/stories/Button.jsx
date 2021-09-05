@@ -7,7 +7,6 @@ import './button.css';
  */
 export const Button = ({ primary, backgroundColor, size, label, color,...props }) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
-
   const styleOne = backgroundColor && color && { background: backgroundColor, color }
   const styleTwo = color && { color }
   const styleThree = backgroundColor && { background: backgroundColor }

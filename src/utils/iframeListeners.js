@@ -3,19 +3,31 @@ const handlePostMessage = (
 	setState,
 	setIframeScreenStackSize,
 	setHeight,
-	setWidth
+	setWidth,
+	history,
+	shouldDisplayIntuitFooter,
 ) => {
+
 	//console.log(e.data.idxMessage)
 	if (e.data.idxMessage) {
 		const data = JSON.parse(e.data.idxMessage)
 
-		console.log(`payload from iframe for screen ${data.screen.toUpperCase()}`, data)
+		console.log(`payload from iframe for screen ${data.currentScreen.toUpperCase()}`, data)
 		setState(data)
-		data.screen === 'connecting' && setIframeScreenStackSize(1)
-		data.screen === 'error' && setIframeScreenStackSize(0)
+
+		if (shouldDisplayIntuitFooter) {
+			data.currentScreen === 'connecting' && setIframeScreenStackSize(1)
+			data.currentScreen === 'error' && setIframeScreenStackSize(0)
+		}
 
 		data.height && setHeight(data.height)
 		data.width && setWidth(data.width)
+		const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0) || (data.currentScreen === 'error' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0)
+		if (navigateToWidgetsInitialScreen) {
+			setIframeScreenStackSize(data.iframeScreenStackSize)
+			history.goBack()
+		}
+
 	}
 }
 
@@ -23,7 +35,9 @@ export function addIframeEventListener(
 	setState,
 	setIframeScreenStackSize,
 	setHeight,
-	setWidth
+	setWidth,
+	history,
+	shouldDisplayIntuitFooter = false,
 ) {
 	const eventMethod = window.addEventListener
 		? 'addEventListener'
@@ -44,7 +58,9 @@ export function addIframeEventListener(
 				setState,
 				setIframeScreenStackSize,
 				setHeight,
-				setWidth
+				setWidth,
+				history,
+				shouldDisplayIntuitFooter,
 			),
 		false
 	)

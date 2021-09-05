@@ -4,17 +4,14 @@ import PropTypes from 'prop-types';
 import { Button } from './Button';
 import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
-import {useHistory} from "react-router-dom";
 
 export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
-	const [currentScreen, setCurrentScreen] = useState('')
 	const [iframeScreenStackSize, setIframeScreenStackSize] = useState(0)
 	const [height, setHeight] = useState('0px')
 	const [width, setWidth] = useState('0px')
-	const history = useHistory()
 
 	useEffect(() => {
 		addIframeEventListener(
@@ -22,7 +19,6 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			setIframeScreenStackSize,
 			setHeight,
 			setWidth,
-			history,
 			setCurrentScreen,
 		)
 
@@ -45,7 +41,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			isAuthScreenFirstInStack,
 		}
 
-		console.log('data from Intuit to aggregator prop change: ', idxMessage)
+		console.log('data from Intuit to aggregator on theme change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
 	}, [theme])
@@ -56,7 +52,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			isAuthScreenFirstInStack,
 		}
 
-		console.log('data from Intuit to aggregator isAuthScreenFirstInStack change: ', idxMessage)
+		console.log('data from Intuit to aggregator on isAuthScreenFirstInStack prop change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
 	}, [isAuthScreenFirstInStack])
@@ -65,6 +61,8 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 		//hideSpinner()
 		iframeRef.current.style.height = height
 		iframeRef.current.style.width = width
+		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
+		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 	}
 
 	useEffect(() => {
@@ -111,7 +109,6 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 
 	const { background, color: fontColor } = color(theme)
 
-	// 						src="http://non-oauth-sage.vercel.app/"
 	return (
 		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
@@ -120,18 +117,19 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			</div>
 
 			<div>
-					<iframe
-						title={"my awesome iframe"}
-						onLoad={handleIframeOnLoad}
-						ref={iframeRef}
-						src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
-						frameBorder="0"
-						scrolling="no"
-					/>
+				<iframe
+					title={"my awesome iframe"}
+					onLoad={handleIframeOnLoad}
+					ref={iframeRef}
+					src={`http://https://non-oauth-sage.vercel.app/?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
+					frameBorder="0"
+					scrolling="no"
+				/>
 			</div>
 		</div>
 	)
 }
+
 
 Iframe.propTypes = {
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),

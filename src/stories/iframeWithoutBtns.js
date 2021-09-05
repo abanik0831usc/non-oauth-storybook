@@ -10,11 +10,10 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
-	const [currentScreen, setCurrentScreen] = useState('')
 	const [iframeScreenStackSize, setIframeScreenStackSize] = useState(0)
 	const [height, setHeight] = useState('0px')
 	const [width, setWidth] = useState('0px')
-	const history = useHistory()
+	const [currentScreen, setCurrentScreen] = useState('')
 
 	useEffect(() => {
 		addIframeEventListener(
@@ -22,8 +21,8 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			setIframeScreenStackSize,
 			setHeight,
 			setWidth,
-			history,
 			setCurrentScreen,
+			true,
 		)
 
 		return () => removeIframeEventListener()
@@ -45,7 +44,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			isAuthScreenFirstInStack,
 		}
 
-		console.log('data from Intuit to aggregator prop change: ', idxMessage)
+		console.log('data from Intuit to aggregator on theme change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
 	}, [theme])
@@ -56,15 +55,17 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			isAuthScreenFirstInStack,
 		}
 
-		console.log('data from Intuit to aggregator isAuthScreenFirstInStack change: ', idxMessage)
+		console.log('data from Intuit to aggregator on isAuthScreenFirstInStack prop change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
 	}, [isAuthScreenFirstInStack])
 
 	const handleIframeOnLoad = () => {
 		//hideSpinner()
-		iframeRef.current.style.height = height
+		iframeRef.current.style.height = parseInt(String(height), 10) + parseInt('20px', 10) + 'px'
 		iframeRef.current.style.width = width
+		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
+		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 	}
 
 	useEffect(() => {
@@ -111,7 +112,39 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 
 	const { background, color: fontColor } = color(theme)
 
-	// 						src="http://non-oauth-sage.vercel.app/"
+	const handleContinueClick = () => {
+		const idxMessage = {
+			screenName: '',
+			navigate: 'forward',
+		}
+
+		if (iframeData.currentScreen !== 'error' || (iframeData.currentScreen === 'error' && iframeData.errorRemediable)) {
+			setIframeScreenStackSize(iframeScreenStackSize + 1)
+		} else {
+			// set some action or disable primary button
+		}
+
+		console.log('data from Intuit to aggregator on primary(continue) button click: ', idxMessage)
+		postIframeMessageToAggregator(idxMessage)
+	}
+
+	const history = useHistory()
+	const handleBackClick = () => {
+		const idxMessage = {
+			screenName: '',
+			navigate: 'back',
+		}
+		if (iframeScreenStackSize === 0) {
+			history.goBack()
+		} else {
+			setIframeScreenStackSize(iframeScreenStackSize - 1)
+		}
+
+		console.log('data from Intuit to aggregator on secondary (back) button click: ', idxMessage)
+		postIframeMessageToAggregator(idxMessage)
+	}
+
+	// src="httpw://non-oauth-sage.vercel.app/"
 	return (
 		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
@@ -120,14 +153,39 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 			</div>
 
 			<div>
-					<iframe
-						title={"my awesome iframe"}
-						onLoad={handleIframeOnLoad}
-						ref={iframeRef}
-						src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
-						frameBorder="0"
-						scrolling="no"
-					/>
+				<iframe
+					title={"my awesome iframe"}
+					onLoad={handleIframeOnLoad}
+					ref={iframeRef}
+					src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
+					frameBorder="0"
+					scrolling="no"
+				/>
+			</div>
+
+			{!iframeData.isConnectingScreen && <Footer iframeScreenStackSize={iframeScreenStackSize} isAuthScreenFirstInStack={isAuthScreenFirstInStack} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
+		</div>
+	)
+}
+
+function Footer({background, fontColor, handleBackClick, handleContinueClick, iframeData, iframeScreenStackSize, isAuthScreenFirstInStack}) {
+	return (
+		<div style={{
+			flex: '1 1 auto',
+			marginTop: 0,
+			borderTop: '1px #dcdcdc solid',
+			paddingTop: '20px',
+			marginBottom: '30px',
+			width: '94%',
+			/* border: 3px solid #8AC007; */
+			position: 'absolute',
+			top: '84%',
+			left: '50%',
+			transform: 'translate(-50%, -50%)'
+		}}>
+			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				{(iframeScreenStackSize !== 0 || !isAuthScreenFirstInStack) && <Button label={'Back'} backgroundColor={background} color={fontColor} onClick={handleBackClick} />}
+				<Button label={iframeData.primaryButtonLabel || 'Continue'} backgroundColor={background} color={fontColor} primary={true} onClick={handleContinueClick} disabled={!iframeData.enablePrimaryButton}/>
 			</div>
 		</div>
 	)
