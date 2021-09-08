@@ -147,7 +147,6 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 	)
 }
 
-
 IframeWithBtns.propTypes = {
 	/**
 	 * theme what is

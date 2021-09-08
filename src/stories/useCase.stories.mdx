@@ -1,19 +1,16 @@
 import { Meta } from '@storybook/addon-docs';
 
-<Meta title="MDX/UseCase" />
+<Meta title="MDX/Integration Guidelines" />
 
 ### Intuit Widgets
 
-Intuit widget **passes** the following data on `onIframeLoad`
+Intuit widget **loads** the Aggregator experience with the following `queryParams`
 
 ```
-{
-	theme: string,
-	locale: string,
-}
+https://aggregator-url.com?theme=theme&width=width
 ```
 
-<h3>Expected payload from Aggregator to Intuit</h3>
+# Expected payload from Aggregator to Intuit
 
 `Authentication` screen:
 
@@ -89,14 +86,14 @@ Intuit widget **passes** the following data on `onIframeLoad`
 
 ```
 navigate<string>: 'forward',
-screen: 'auth' // pass current screen name
+screen: 'authentication' // pass current screen name
 ```
 
 `onSecondaryButtonClick` (Back):
 
 ```
 navigate<string>: 'back',
-screen: 'auth' // pass current screen name
+screen: 'authentication' // pass current screen name
 ```
 
 ```
