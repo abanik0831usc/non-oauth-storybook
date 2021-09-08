@@ -12,7 +12,7 @@ export default {
 			control: { type: 'select' },
 			default: 'mint',
 		},
-		isAuthScreenFirstInStack: {
+		isAggregatorScreenFirstInWidgets: {
 			control: { type: 'boolean' },
 			default: false,
 			description: 'fucker'

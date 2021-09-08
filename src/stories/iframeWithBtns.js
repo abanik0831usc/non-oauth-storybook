@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) => {
+export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframeUrl }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -39,7 +39,7 @@ export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) =
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
 		console.log('data from Intuit to aggregator on theme change: ', idxMessage)
@@ -50,18 +50,20 @@ export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) =
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
-		console.log('data from Intuit to aggregator on isAuthScreenFirstInStack prop change: ', idxMessage)
+		console.log('data from Intuit to aggregator on isAggregatorScreenFirstInWidgets prop change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
-	}, [isAuthScreenFirstInStack])
+	}, [isAggregatorScreenFirstInWidgets])
+
+	const [hideSpinner, shouldHideSpinner] = useState(false)
 
 	const handleIframeOnLoad = () => {
-		//hideSpinner()
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width = width
+		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
+		shouldHideSpinner(true)
 		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
 		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 	}
@@ -110,6 +112,10 @@ export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) =
 
 	const { background, color: fontColor } = color(theme)
 
+	const Spinner = () => {
+		return (<>loading...</>)
+	}
+
 	return (
 		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
@@ -117,15 +123,25 @@ export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) =
 				<h1>Login to Intuit Bank</h1>
 			</div>
 
-			<div style={{ padding: '30px 30px 30px'}}>
-				<iframe
-					title={"my awesome iframe"}
-					onLoad={handleIframeOnLoad}
-					ref={iframeRef}
-					src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
-					frameBorder="0"
-					scrolling="no"
-				/>
+			<div style={{ position: 'relative', minHeight: '332px' }}>
+				{!hideSpinner && <div style={{ height: '150px', position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%,-50%)',
+					zIndex: '-1000',
+				}}>
+					<Spinner />
+				</div>}
+				<div style={{ padding: '30px 30px 30px'}}>
+					<iframe
+						title={"my awesome iframe"}
+						onLoad={handleIframeOnLoad}
+						ref={iframeRef}
+						src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						frameBorder="0"
+						scrolling="no"
+					/>
+				</div>
 			</div>
 		</div>
 	)
@@ -137,7 +153,7 @@ IframeWithBtns.propTypes = {
 	 * theme what is
 	 */
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
-	isAuthScreenFirstInStack: PropTypes.bool,
+	isAggregatorScreenFirstInWidgets: PropTypes.bool,
 	/**
 	 * What background color to use
 	 */
@@ -150,6 +166,6 @@ IframeWithBtns.defaultProps = {
 
 IframeWithBtns.defaultProps = {
 	theme: 'sbg2',
-	isAuthScreenFirstInStack: false,
+	isAggregatorScreenFirstInWidgets: false,
 	primary: false,
 }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export function IntuitButtonsDocuments({ theme, isAuthScreenFirstInStack }) {
+export function IntuitButtonsDocuments({ theme, isAggregatorScreenFirstInWidgets }) {
 	return (
 		<div />
 	);

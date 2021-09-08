@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const IframeWithIntuitButtons = ({ theme, isAuthScreenFirstInStack }) => {
+export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -43,7 +43,7 @@ export const IframeWithIntuitButtons = ({ theme, isAuthScreenFirstInStack }) => 
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
 		console.log('data from Intuit to aggregator on theme change: ', idxMessage)
@@ -54,21 +54,21 @@ export const IframeWithIntuitButtons = ({ theme, isAuthScreenFirstInStack }) => 
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
-		console.log('data from Intuit to aggregator on isAuthScreenFirstInStack prop change: ', idxMessage)
+		console.log('data from Intuit to aggregator on isAggregatorScreenFirstInWidgets prop change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
-	}, [isAuthScreenFirstInStack])
+	}, [isAggregatorScreenFirstInWidgets])
 
 	const Spinner = () => {
 		return (<>loading...</>)
 	}
 
 	const handleIframeOnLoad = () => {
-		iframeRef.current.style.height = parseInt(String(height), 10) + parseInt('20px', 10) + 'px'
-		iframeRef.current.style.width = width
+		iframeRef.current.style.height = height
+		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
 		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
 		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 		shouldHideSpinner(true)
@@ -171,19 +171,19 @@ export const IframeWithIntuitButtons = ({ theme, isAuthScreenFirstInStack }) => 
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
+						src={`http://localhost:3000?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
 						frameBorder="0"
 						scrolling="no"
 					/>
 				</div>
 			</div>
 
-			{!(iframeData.isConnectingScreen || iframeData.responseToken) && <Footer iframeScreenStackSize={iframeScreenStackSize} isAuthScreenFirstInStack={isAuthScreenFirstInStack} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
+			{!(iframeData.isConnectingScreen || iframeData.responseToken) && <Footer iframeScreenStackSize={iframeScreenStackSize} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
 		</div>
 	)
 }
 
-function Footer({background, fontColor, handleBackClick, handleContinueClick, iframeData, iframeScreenStackSize, isAuthScreenFirstInStack}) {
+function Footer({background, fontColor, handleBackClick, handleContinueClick, iframeData, iframeScreenStackSize, isAggregatorScreenFirstInWidgets}) {
 	return (
 		<div style={{
 			flex: '1 1 auto',
@@ -199,7 +199,7 @@ function Footer({background, fontColor, handleBackClick, handleContinueClick, if
 			transform: 'translate(-50%, -50%)'
 		}}>
 			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-				{(iframeScreenStackSize !== 0 || !isAuthScreenFirstInStack) && <Button label={'Back'} backgroundColor={background} color={fontColor} onClick={handleBackClick} />}
+				{(iframeScreenStackSize !== 0 || !isAggregatorScreenFirstInWidgets) && <Button label={'Back'} backgroundColor={background} color={fontColor} onClick={handleBackClick} />}
 				<Button label={iframeData.primaryButtonLabel || 'Continue'} backgroundColor={background} color={fontColor} primary={true} onClick={handleContinueClick} disabled={!iframeData.enablePrimaryButton}/>
 			</div>
 		</div>
@@ -212,9 +212,9 @@ IframeWithIntuitButtons.propTypes = {
 	 */
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
 	/**
-	 * what is isAuthScreenFirstInStack
+	 * what is isAggregatorScreenFirstInWidgets
 	 */
-	isAuthScreenFirstInStack: PropTypes.bool,
+	isAggregatorScreenFirstInWidgets: PropTypes.bool,
 	/**
 	 * primary!!
 	 */
@@ -224,5 +224,5 @@ IframeWithIntuitButtons.propTypes = {
 IframeWithIntuitButtons.defaultProps = {
 	theme: 'sbg2',
 	primary: true,
-	isAuthScreenFirstInStack: false,
+	isAggregatorScreenFirstInWidgets: false,
 };

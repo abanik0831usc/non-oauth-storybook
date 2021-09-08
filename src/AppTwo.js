@@ -10,17 +10,17 @@ import {
 import { Iframe } from "./stories/iframeWithoutBtns";
 import Search from "./stories/search";
 
-function App({ theme, isAuthScreenFirstInStack }) {
-	console.log('holies: ', theme, isAuthScreenFirstInStack)
+function App({ theme, isAggregatorScreenFirstInWidgets }) {
+	console.log('holies: ', theme, isAggregatorScreenFirstInWidgets)
 	return (
 		<Router>
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<Iframe isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />
+						<Iframe isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />
 					</Route>
 					<Route path="/">
-						{isAuthScreenFirstInStack ? <Iframe isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} /> : <Search isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />}
+						{isAggregatorScreenFirstInWidgets ? <Iframe isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
 					</Route>
 				</Switch>
 			</div>

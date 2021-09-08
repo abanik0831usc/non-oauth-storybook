@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function Search({theme, isAuthScreenFirstInStack}) {
+export default function Search({theme, isAggregatorScreenFirstInWidgets}) {
 	const history = useHistory()
 	const handleClick = () => {
 		history.push('/iframe')

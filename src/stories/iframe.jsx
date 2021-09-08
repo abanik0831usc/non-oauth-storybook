@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
+export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -42,7 +42,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
 		console.log('data from Intuit to aggregator prop change: ', idxMessage)
@@ -53,13 +53,13 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	useEffect(() => {
 		const idxMessage = {
 			theme,
-			isAuthScreenFirstInStack,
+			isAggregatorScreenFirstInWidgets,
 		}
 
-		console.log('data from Intuit to aggregator isAuthScreenFirstInStack change: ', idxMessage)
+		console.log('data from Intuit to aggregator isAggregatorScreenFirstInWidgets change: ', idxMessage)
 
 		postIframeMessageToAggregator(idxMessage)
-	}, [isAuthScreenFirstInStack])
+	}, [isAggregatorScreenFirstInWidgets])
 
 	const handleIframeOnLoad = () => {
 		//hideSpinner()
@@ -124,7 +124,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
+						src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
 						frameBorder="0"
 						scrolling="no"
 					/>
@@ -135,7 +135,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 
 Iframe.propTypes = {
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
-	isAuthScreenFirstInStack: PropTypes.bool,
+	isAggregatorScreenFirstInWidgets: PropTypes.bool,
 	lol: PropTypes.string,
 	// user: PropTypes.shape({}),
 	// onLogin: PropTypes.func.isRequired,

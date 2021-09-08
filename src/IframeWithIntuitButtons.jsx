@@ -10,16 +10,16 @@ import { IframeWithIntuitButtons } from "./stories/iframeWithoutBtns";
 import Search from "./stories/search";
 import PropTypes from "prop-types";
 
-export function IntuitButtons({ theme, isAuthScreenFirstInStack }) {
+export function IntuitButtons({ theme, isAggregatorScreenFirstInWidgets }) {
 	return (
 		<Router>
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<IframeWithIntuitButtons isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />
+						<IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />
 					</Route>
 					<Route path="/">
-						{isAuthScreenFirstInStack ? <IframeWithIntuitButtons isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} /> : <Search isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />}
+						{isAggregatorScreenFirstInWidgets ? <IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
 					</Route>
 				</Switch>
 			</div>
@@ -98,7 +98,7 @@ IntuitButtons.propTypes = {
 
 IntuitButtons.defaultProps = {
 	theme: 'sbg2',
-	isAuthScreenFirstInStack: false,
+	isAggregatorScreenFirstInWidgets: false,
 	isLaunchScreenByAggregator: false,
 	shouldDisplayIntuitFooter: false,
 	isConnectingScreen: false,
