@@ -10,6 +10,16 @@ Intuit widget **loads** the Aggregator experience with the following `queryParam
 https://aggregator-url.com?theme=theme&width=width
 ```
 
+# How do I communicate with Intuit?
+
+Intuit will be iframing the Aggregator window. Communication will be done via `window.PostMessage`
+
+# how Do I send message via post message?
+
+```
+window.parent.postMessage(payload, url)
+```
+
 # Expected payload from Aggregator to Intuit
 
 `Authentication` screen:
