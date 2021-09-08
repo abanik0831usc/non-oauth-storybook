@@ -2,7 +2,7 @@ import {IntuitButtons} from '../IframeWithIntuitButtons';
 
 
 export default {
-	title: 'Example/IframeWithIntuitButtons',
+	title: 'Example/Aggregator With Intuit Buttons',
 	component: IntuitButtons,
 	argTypes: {
 		theme: {
@@ -209,4 +209,4 @@ export default {
 	},
 };
 
-export const Template = (args) => <IntuitButtons {...args} />;
+export const Playground = (args) => <IntuitButtons {...args} />;

@@ -2,7 +2,7 @@ import {AggregatorButtons} from '../IframeWithoutIntuitButtons';
 
 
 export default {
-	title: 'Example/IframeWithoutIntuitButtons',
+	title: 'Example/Aggregator Without Intuit Buttons',
 	component: AggregatorButtons,
 	argTypes: {
 		iframeUrl: {
@@ -145,4 +145,4 @@ export default {
 	},
 };
 
-export const Template = (args) => <AggregatorButtons {...args} />;
+export const Playground = (args) => <AggregatorButtons {...args} />;
