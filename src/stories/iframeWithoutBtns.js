@@ -171,7 +171,7 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`http://localhost:3000?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
+						src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
 						frameBorder="0"
 						scrolling="no"
 					/>
