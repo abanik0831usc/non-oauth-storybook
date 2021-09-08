@@ -19,7 +19,7 @@ function App({ theme, isAuthScreenFirstInStack }) {
             <Iframe isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />
           </Route>
           <Route path="/">
-            {isAuthScreenFirstInStack ? <Iframe isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} /> : <Search  isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />}
+            {isAuthScreenFirstInStack ? <Iframe isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} /> : <Search isAuthScreenFirstInStack={isAuthScreenFirstInStack} theme={theme} />}
           </Route>
         </Switch>
       </div>

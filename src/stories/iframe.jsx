@@ -124,7 +124,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
+						src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
 						frameBorder="0"
 						scrolling="no"
 					/>
@@ -136,6 +136,7 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 Iframe.propTypes = {
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
 	isAuthScreenFirstInStack: PropTypes.bool,
+	lol: PropTypes.string,
 	// user: PropTypes.shape({}),
 	// onLogin: PropTypes.func.isRequired,
 	// onLogout: PropTypes.func.isRequired,

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Button } from './Button';
 import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
+import {useHistory} from "react-router-dom";
 
-export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
+export const IframeWithBtns = ({ theme, isAuthScreenFirstInStack, iframeUrl }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -13,13 +14,15 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	const [height, setHeight] = useState('0px')
 	const [width, setWidth] = useState('0px')
 
+	const history = useHistory()
 	useEffect(() => {
 		addIframeEventListener(
 			setIFrameData,
 			setIframeScreenStackSize,
 			setHeight,
 			setWidth,
-			setCurrentScreen,
+			history,
+			// setCurrentScreen,
 		)
 
 		return () => removeIframeEventListener()
@@ -31,8 +34,6 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 		}
 
 		iframeRef.current.contentWindow.postMessage({ idxMessage }, '*')
-
-		// setIFrameData({ enablePrimaryButton: false })
 	}
 
 	useEffect(() => {
@@ -116,12 +117,12 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 				<h1>Login to Intuit Bank</h1>
 			</div>
 
-			<div>
+			<div style={{ padding: '30px 30px 30px'}}>
 				<iframe
 					title={"my awesome iframe"}
 					onLoad={handleIframeOnLoad}
 					ref={iframeRef}
-					src={`http://https://non-oauth-sage.vercel.app/?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
+					src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}`}
 					frameBorder="0"
 					scrolling="no"
 				/>
@@ -131,15 +132,24 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 }
 
 
-Iframe.propTypes = {
+IframeWithBtns.propTypes = {
+	/**
+	 * theme what is
+	 */
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
 	isAuthScreenFirstInStack: PropTypes.bool,
-	// user: PropTypes.shape({}),
-	// onLogin: PropTypes.func.isRequired,
-	// onLogout: PropTypes.func.isRequired,
-	// onCreateAccount: PropTypes.func.isRequired,
+	/**
+	 * What background color to use
+	 */
+	primary: PropTypes.bool,
 };
 
-Iframe.defaultProps = {
+IframeWithBtns.defaultProps = {
 	//theme: 'sbg2',
 };
+
+IframeWithBtns.defaultProps = {
+	theme: 'sbg2',
+	isAuthScreenFirstInStack: false,
+	primary: false,
+}

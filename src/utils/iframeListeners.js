@@ -15,19 +15,21 @@ const handlePostMessage = (
 		console.log(`payload from iframe for screen ${data.currentScreen.toUpperCase()}`, data)
 		setState(data)
 
+		data.height && setHeight(data.height)
+		data.width && setWidth(data.width)
+
 		if (shouldDisplayIntuitFooter) {
 			data.currentScreen === 'connecting' && setIframeScreenStackSize(1)
 			data.currentScreen === 'error' && setIframeScreenStackSize(0)
+		} else {
+			console.log('getting data: ', data)
+			const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0) || (data.currentScreen === 'error' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0)
+			if (navigateToWidgetsInitialScreen) {
+				setIframeScreenStackSize(data.iframeScreenStackSize)
+				debugger
+				history.goBack()
+			}
 		}
-
-		data.height && setHeight(data.height)
-		data.width && setWidth(data.width)
-		const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0) || (data.currentScreen === 'error' && data.btnClicked === 'back' && data.iframeScreenStackSize === 0)
-		if (navigateToWidgetsInitialScreen) {
-			setIframeScreenStackSize(data.iframeScreenStackSize)
-			history.goBack()
-		}
-
 	}
 }
 

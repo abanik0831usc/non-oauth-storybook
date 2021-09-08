@@ -7,6 +7,18 @@ export default {
   component: Button,
   argTypes: {
     backgroundColor: { control: 'color' },
+    label: {
+      description: 'Overwritten description',
+      table: {
+        type: {
+          summary: 'Something short',
+          detail: 'Something really really long'
+        },
+      },
+      control: {
+        type: null,
+      },
+    },
   },
 };
 

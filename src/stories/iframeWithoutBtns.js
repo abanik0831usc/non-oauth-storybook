@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
+export const IframeWithIntuitButtons = ({ theme, isAuthScreenFirstInStack }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -14,6 +14,8 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 	const [height, setHeight] = useState('0px')
 	const [width, setWidth] = useState('0px')
 	const [currentScreen, setCurrentScreen] = useState('')
+	const [hideSpinner, shouldHideSpinner] = useState(false)
+	const spinnerRef = useRef(null)
 
 	useEffect(() => {
 		addIframeEventListener(
@@ -60,19 +62,22 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 		postIframeMessageToAggregator(idxMessage)
 	}, [isAuthScreenFirstInStack])
 
+	const Spinner = () => {
+		return (<>loading...</>)
+	}
+
 	const handleIframeOnLoad = () => {
-		//hideSpinner()
 		iframeRef.current.style.height = parseInt(String(height), 10) + parseInt('20px', 10) + 'px'
 		iframeRef.current.style.width = width
 		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
 		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
+		shouldHideSpinner(true)
+
 	}
 
 	useEffect(() => {
 		iframeRef.current.style.height = height
 		iframeRef.current.style.width = width
-
-		// divRef.current.style.height = '356px'
 	}, [height, width])
 
 	const color = (type) => {
@@ -151,18 +156,29 @@ export const Iframe = ({ theme, isAuthScreenFirstInStack }) => {
 				<h1>Login to Intuit Bank</h1>
 			</div>
 
-			<div>
-				<iframe
-					title={"my awesome iframe"}
-					onLoad={handleIframeOnLoad}
-					ref={iframeRef}
-					src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
-					frameBorder="0"
-					scrolling="no"
-				/>
+			<div style={{ position: 'relative', minHeight: '332px' }}>
+				{!hideSpinner && <div style={{ height: '150px', position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%,-50%)',
+					zIndex: '-1000',
+				}}>
+					<Spinner />
+				</div>}
+				<div style={{ padding: '30px 30px 30px'}}>
+					<iframe
+						style={{ zIndex: 100, background: 'white' }}
+						title={"my awesome iframe"}
+						onLoad={handleIframeOnLoad}
+						ref={iframeRef}
+						src={`http://localhost:3000?theme=${theme}&isAuthScreenFirstInStack=${isAuthScreenFirstInStack}&shouldDisplayIntuitFooter=true`}
+						frameBorder="0"
+						scrolling="no"
+					/>
+				</div>
 			</div>
 
-			{!iframeData.isConnectingScreen && <Footer iframeScreenStackSize={iframeScreenStackSize} isAuthScreenFirstInStack={isAuthScreenFirstInStack} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
+			{!(iframeData.isConnectingScreen || iframeData.responseToken) && <Footer iframeScreenStackSize={iframeScreenStackSize} isAuthScreenFirstInStack={isAuthScreenFirstInStack} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
 		</div>
 	)
 }
@@ -190,15 +206,23 @@ function Footer({background, fontColor, handleBackClick, handleContinueClick, if
 	)
 }
 
-Iframe.propTypes = {
+IframeWithIntuitButtons.propTypes = {
+	/**
+	 * what is theme
+	 */
 	theme: PropTypes.oneOf(['sbg2', 'mint', 'ck', 'intuit', 'ctg']),
+	/**
+	 * what is isAuthScreenFirstInStack
+	 */
 	isAuthScreenFirstInStack: PropTypes.bool,
-	// user: PropTypes.shape({}),
-	// onLogin: PropTypes.func.isRequired,
-	// onLogout: PropTypes.func.isRequired,
-	// onCreateAccount: PropTypes.func.isRequired,
+	/**
+	 * primary!!
+	 */
+	primary: PropTypes.bool,
 };
 
-Iframe.defaultProps = {
-	//theme: 'sbg2',
+IframeWithIntuitButtons.defaultProps = {
+	theme: 'sbg2',
+	primary: true,
+	isAuthScreenFirstInStack: false,
 };

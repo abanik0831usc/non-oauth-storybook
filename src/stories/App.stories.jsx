@@ -15,6 +15,15 @@ export default {
 		isAuthScreenFirstInStack: {
 			control: { type: 'boolean' },
 			default: false,
+			description: 'fucker'
+		}
+	},
+	parameters: {
+		docs: {
+			source: {
+				type: 'code',
+				code: 'Some custom string here',
+			}
 		}
 	}
 };
@@ -25,13 +34,20 @@ const TemplateWithoutBtn = (args) => <AppTwo {...args} />;
 
 export const AppWithBtns = Template.bind({});
 
+AppWithBtns.args = {
+	prillmary: true,
+	size: 'small',
+	label: 'button',
+};
+
 export const AppWithoutBtns = TemplateWithoutBtn.bind({})
-// LoggedIn.args = {
-// 	theme: {
-// 		options: ['primary', 'secondary'],
-// 		control: { type: 'select' }
-// 	},
-// };
-//
+
+AppWithoutBtns.args = {
+	theme: {
+		options: ['primary', 'secondary'],
+		control: { type: 'select' }
+	},
+};
+
 // export const LoggedOut = Template.bind({});
 // LoggedOut.args = {};
