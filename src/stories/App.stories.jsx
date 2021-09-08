@@ -12,11 +12,6 @@ export default {
 			control: { type: 'select' },
 			default: 'mint',
 		},
-		isAggregatorScreenFirstInWidgets: {
-			control: { type: 'boolean' },
-			default: false,
-			description: 'fucker'
-		}
 	},
 	parameters: {
 		docs: {

@@ -99,8 +99,6 @@ IntuitButtons.propTypes = {
 IntuitButtons.defaultProps = {
 	theme: 'sbg2',
 	isAggregatorScreenFirstInWidgets: false,
-	isLaunchScreenByAggregator: false,
-	shouldDisplayIntuitFooter: false,
 	isConnectingScreen: false,
 	currentScreen: 'authentication',
 };
