@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframeUrl }) => {
+export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframeUrl, showIframeBorder = false }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -138,7 +138,7 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
 						src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
-						frameBorder="0"
+						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>
 				</div>

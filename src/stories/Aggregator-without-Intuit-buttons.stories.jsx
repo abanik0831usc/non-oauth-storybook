@@ -5,6 +5,12 @@ export default {
 	title: 'Example/Aggregator Without Intuit Buttons',
 	component: AggregatorButtons,
 	argTypes: {
+		showIframeBorder: {
+			default: false,
+			type: { name: 'boolean', required: false },
+			defaultValue: false,
+			control: { type: 'boolean' },
+		},
 		iframeUrl: {
 			defaultValue: 'https://www.google.com/',
 			type: { name: 'string', required: false },

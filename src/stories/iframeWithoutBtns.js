@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidgets }) => {
+export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidgets, showIframeBorder = false }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -150,7 +150,7 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 	}
 
 	return (
-		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
+		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', minHeight: '546px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
 				<div className="image" />
 				<h1>Login to Intuit Bank</h1>
@@ -172,7 +172,7 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
 						src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
-						frameBorder="0"
+						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>
 				</div>

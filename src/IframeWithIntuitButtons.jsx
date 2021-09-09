@@ -10,16 +10,16 @@ import { IframeWithIntuitButtons } from "./stories/iframeWithoutBtns";
 import Search from "./stories/search";
 import PropTypes from "prop-types";
 
-export function IntuitButtons({ theme, isAggregatorScreenFirstInWidgets }) {
+export function IntuitButtons({ theme, isAggregatorScreenFirstInWidgets, showIframeBorder = false }) {
 	return (
 		<Router>
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />
+						<IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} showIframeBorder={showIframeBorder} />
 					</Route>
 					<Route path="/">
-						{isAggregatorScreenFirstInWidgets ? <IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
+						{isAggregatorScreenFirstInWidgets ? <IframeWithIntuitButtons showIframeBorder={showIframeBorder} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
 					</Route>
 				</Switch>
 			</div>

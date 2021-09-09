@@ -9,16 +9,16 @@ import { IframeWithBtns } from "./stories/iframeWithBtns";
 import Search from "./stories/search";
 import PropTypes from "prop-types";
 
-export function AggregatorButtons({ theme, isAggregatorScreenFirstInWidgets, iframeUrl }) {
+export function AggregatorButtons({ theme, isAggregatorScreenFirstInWidgets, iframeUrl, showIframeBorder = false }) {
 	return (
 		<Router>
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<IframeWithBtns isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />
+						<IframeWithBtns isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} showIframeBorder={showIframeBorder} />
 					</Route>
 					<Route path="/">
-						{isAggregatorScreenFirstInWidgets ? <IframeWithBtns iframeUrl={iframeUrl} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
+						{isAggregatorScreenFirstInWidgets ? <IframeWithBtns showIframeBorder={showIframeBorder} iframeUrl={iframeUrl} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
 					</Route>
 				</Switch>
 			</div>

@@ -5,6 +5,16 @@ export default {
 	title: 'Example/Aggregator With Intuit Buttons',
 	component: IntuitButtons,
 	argTypes: {
+		showIframeBorder: {
+			default: false,
+			type: { name: 'boolean', required: false },
+			defaultValue: false,
+			control: { type: 'boolean' },
+		},
+		iframeUrl: {
+			defaultValue: 'https://www.google.com/',
+			type: { name: 'string', required: false },
+		},
 		theme: {
 			options: ['sbg2', 'mint', 'ck', 'intuit', 'ctg'],
 			default: 'mint',
