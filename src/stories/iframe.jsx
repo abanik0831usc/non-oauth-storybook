@@ -64,12 +64,12 @@ export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 	const handleIframeOnLoad = () => {
 		//hideSpinner()
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width = width
+		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
 	}
 
 	useEffect(() => {
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width = width
+		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
 
 		// divRef.current.style.height = '356px'
 	}, [height, width])
