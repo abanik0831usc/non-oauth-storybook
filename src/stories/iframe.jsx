@@ -111,7 +111,7 @@ export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 
 	const { background, color: fontColor } = color(theme)
 
-	// 						src="http://non-oauth-sage.vercel.app/"
+	// 						src="http://non-oauth.vercel.app/"
 	return (
 		<div className="iframeWrapper" ref={divRef} style={{ width: '860px', border: 'solid 1px #dcdcdc', borderRadius: '2px', padding: '0' }}>
 			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding: '30px 30px 0' }}>
@@ -124,7 +124,7 @@ export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth-sage.vercel.app?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						src={`https://non-oauth.vercel.app?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
 						frameBorder="0"
 						scrolling="no"
 					/>

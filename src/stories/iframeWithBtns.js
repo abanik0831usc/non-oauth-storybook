@@ -137,7 +137,7 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth-sage.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						src={`https://non-oauth.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
 						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>
