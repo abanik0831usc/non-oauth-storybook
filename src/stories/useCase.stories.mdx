@@ -19,6 +19,14 @@ https://aggregator-url.com?theme=theme&url=offeringUrl&isAuthScreenFirstInStack=
 | isAuthScreenFirstInStack    |   false    | Intuit has the option of starting the flow from Search & select screen or Authentication screen. In the case when a flow begins from Auth screen a flag `isAuthScreenFirstInStack` will be passed. This will be required to `hide` the `secondary` Back button on first screen | false
 | shouldDisplayIntuitFooter    |   false    | Aggregators have the option of owning their own footer or have Intuit own the footer experience. By default, Aggregators owns the experience | false
 
+
+### Style requirements
+
+**Intuit** requires **aggregators** to set `margin` and `padding` to be set to **0**. **Intuit** will be handling these properties on their end.
+
+**Intuit** requires **aggregators** to set `width` on the **container** to be set to **100%**. **Intuit** will be manage the `width` based on the offerings setting.
+
+
 # How do I communicate with Intuit?
 
 Intuit will be iframing the Aggregator window. Communication will be done via `window.postMessage`
@@ -35,7 +43,7 @@ window.parent.postMessage({ idxMessage }, url)
 
 # Expected payload from Aggregator to Intuit
 
-**NOTE** `enablePrimaryButton`, `primaryButtonContent` are only applicable when **Intuit** owns the footer experience. 
+**NOTE** `enablePrimaryButton`, `primaryButtonContent` are only applicable when **Intuit** owns the footer experience.
 
 ### `Authentication` screen:
 
