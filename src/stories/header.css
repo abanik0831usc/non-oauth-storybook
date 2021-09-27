@@ -15,11 +15,12 @@
 }
 
 .image {
-  background-image: url("https://financialprovider-e2e-logos.platform.intuit.com/v1/logos/1e751652-1cba-49d7-80c9-49978f4d390d?logo_requester=CCOMJOB");
+  background-image: url("https://files-m1gwv2ve9-abanik0831usc.vercel.app");
   width: 80px;
   height: 80px;
   border-radius: 50%;
   background-size: cover;
+  border: 1px #e3eaf3 solid;
 }
 
 svg {
