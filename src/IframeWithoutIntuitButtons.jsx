@@ -15,7 +15,7 @@ export function AggregatorButtons({ theme, isAggregatorScreenFirstInWidgets, ifr
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<IframeWithBtns isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} showIframeBorder={showIframeBorder} />
+						<IframeWithBtns isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} iframeUrl={iframeUrl} theme={theme} showIframeBorder={showIframeBorder} />
 					</Route>
 					<Route path="/">
 						{isAggregatorScreenFirstInWidgets ? <IframeWithBtns showIframeBorder={showIframeBorder} iframeUrl={iframeUrl} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
@@ -67,7 +67,7 @@ AggregatorButtons.propTypes = {
 	/**
 	 * Access Token of the provider once connection is successfully completed
 	 */
-	responseToken: PropTypes.string,
+	code: PropTypes.string,
 
 	/**
 	 * Informs Aggregator or Intuit whether the user clicked [Secondary](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons) or [Primary Button](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons)

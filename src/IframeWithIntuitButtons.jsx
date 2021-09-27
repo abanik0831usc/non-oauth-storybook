@@ -10,16 +10,16 @@ import { IframeWithIntuitButtons } from "./stories/iframeWithoutBtns";
 import Search from "./stories/search";
 import PropTypes from "prop-types";
 
-export function IntuitButtons({ theme, isAggregatorScreenFirstInWidgets, showIframeBorder = false }) {
+export function IntuitButtons({ theme, iframeUrl, isAggregatorScreenFirstInWidgets, showIframeBorder = false }) {
 	return (
 		<Router>
 			<div style={{ width: '860px' }}>
 				<Switch>
 					<Route path="/iframe">
-						<IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} showIframeBorder={showIframeBorder} />
+						<IframeWithIntuitButtons isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} iframeUrl={iframeUrl} theme={theme} showIframeBorder={showIframeBorder} />
 					</Route>
 					<Route path="/">
-						{isAggregatorScreenFirstInWidgets ? <IframeWithIntuitButtons showIframeBorder={showIframeBorder} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
+						{isAggregatorScreenFirstInWidgets ? <IframeWithIntuitButtons iframeUrl={iframeUrl} showIframeBorder={showIframeBorder} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} /> : <Search isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} theme={theme} />}
 					</Route>
 				</Switch>
 			</div>
@@ -28,6 +28,7 @@ export function IntuitButtons({ theme, isAggregatorScreenFirstInWidgets, showIfr
 }
 
 IntuitButtons.propTypes = {
+	iframeUrl: PropTypes.string,
 	/**
 	 * theme passed by Intuit to apply selected styling
 	 */
@@ -83,7 +84,7 @@ IntuitButtons.propTypes = {
 	/**
 	 * Access Token of the provider once connection is successfully completed
 	 */
-	responseToken: PropTypes.string,
+	code: PropTypes.string,
 
 	/**
 	 * Informs Aggregator or Intuit whether the user clicked [Secondary](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons) or [Primary Button](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons)

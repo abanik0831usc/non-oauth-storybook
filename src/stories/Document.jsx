@@ -62,7 +62,7 @@ IntuitButtonsDocuments.propTypes = {
 	/**
 	 * Access Token of the provider once connection is successfully completed
 	 */
-	responseToken: PropTypes.string,
+	code: PropTypes.string,
 	/**
 	 * Boolean to decide if the [secondary button](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons) should be visible
 	 */

@@ -1,7 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-
-import { Button } from './Button';
 import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
@@ -9,8 +7,8 @@ import {useHistory} from "react-router-dom";
 export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframeUrl, showIframeBorder = false }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
-	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
-	const [iframeScreenStackSize, setIframeScreenStackSize] = useState(0)
+	const [, setIFrameData] = useState({ enablePrimaryButton: false })
+	const [, setIframeScreenStackSize] = useState(0)
 	const [height, setHeight] = useState('0px')
 	const [width, setWidth] = useState('0px')
 
@@ -104,8 +102,6 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 		}
 	}
 
-	const { background, color: fontColor } = color(theme)
-
 	const Spinner = () => {
 		return (<>loading...</>)
 	}
@@ -132,7 +128,7 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
 						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>

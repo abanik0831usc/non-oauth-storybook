@@ -6,7 +6,7 @@ import './header.css';
 import { addIframeEventListener, removeIframeEventListener } from "../utils/iframeListeners";
 import {useHistory} from "react-router-dom";
 
-export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidgets, showIframeBorder = false }) => {
+export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidgets, iframeUrl, showIframeBorder = false }) => {
 	const iframeRef = useRef(null)
 	const divRef = useRef(null)
 	const [iframeData, setIFrameData] = useState({ enablePrimaryButton: false })
@@ -167,14 +167,14 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth.vercel.app/?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
+						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
 						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>
 				</div>
 			</div>
 
-			{!(iframeData.isConnectingScreen || iframeData.responseToken) && <Footer iframeScreenStackSize={iframeScreenStackSize} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
+			{!(iframeData.isConnectingScreen || iframeData.code) && <Footer iframeScreenStackSize={iframeScreenStackSize} isAggregatorScreenFirstInWidgets={isAggregatorScreenFirstInWidgets} background={background} fontColor={fontColor} handleBackClick={handleBackClick} handleContinueClick={handleContinueClick} iframeData={iframeData} />}
 		</div>
 	)
 }

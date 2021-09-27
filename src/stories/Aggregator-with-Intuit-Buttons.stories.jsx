@@ -12,7 +12,7 @@ export default {
 			control: { type: 'boolean' },
 		},
 		iframeUrl: {
-			defaultValue: 'https://www.google.com/',
+			defaultValue: 'https://non-oauth.vercel.app/',
 			type: { name: 'string', required: false },
 		},
 		theme: {
@@ -169,14 +169,14 @@ export default {
 				type: null
 			}
 		},
-		responseToken: {
-			name: 'responseToken',
+		code: {
+			name: 'code',
 			type: { name: 'string', required: false },
 			defaultValue: 'token_value',
 			table: {
 				type: {
-					summary: 'what is responseToken?',
-					detail: 'responseToken property is the value returned by providers when a connection is successfully completed'
+					summary: 'what is code?',
+					detail: 'code property is the value returned by providers when a connection is successfully completed'
 				},
 				defaultValue: { summary: 'token_value' },
 			},
