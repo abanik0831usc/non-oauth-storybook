@@ -68,17 +68,13 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 
 	const handleIframeOnLoad = () => {
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
-		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
-		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 		shouldHideSpinner(true)
 
 	}
 
 	useEffect(() => {
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width = parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
-	}, [height, width])
+	}, [height])
 
 	const color = (type) => {
 		switch (type) {
@@ -167,7 +163,7 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 				</div>}
 				<div style={{ padding: '30px 30px 30px'}}>
 					<iframe
-						style={{ zIndex: 100, background: 'white' }}
+						style={{ zIndex: 100, background: 'white', width: '100%' }}
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}

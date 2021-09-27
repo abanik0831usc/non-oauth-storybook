@@ -25,7 +25,6 @@ export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 			history,
 			setCurrentScreen,
 		)
-
 		return () => removeIframeEventListener()
 	}, [])
 

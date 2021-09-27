@@ -7,105 +7,165 @@ import { Meta } from '@storybook/addon-docs';
 Intuit widget **loads** the Aggregator experience with the following `queryParams`
 
 ```
-https://aggregator-url.com?theme=theme&width=width
+https://aggregator-url.com?theme=theme&url=offeringUrl&isAuthScreenFirstInStack=isAuthScreenFirstInStack&shouldDisplayIntuitFooter=shouldDisplayIntuitFooter
 ```
+
+### What are the query params?
+
+| query | default | description | required
+| :--- | :----: | :----: | :----:
+| theme    |   -    |     Intuit offerings theme. Specific styling will be required by theme name | true
+| url    |   -      | Intuit offerings URL where the request originated. Required to be pass in `window.postMessage` | true
+| isAuthScreenFirstInStack    |   false    | Intuit has the option of starting the flow from Search & select screen or Authentication screen. In the case when a flow begins from Auth screen a flag `isAuthScreenFirstInStack` will be passed. This will be required to `hide` the `secondary` Back button on first screen | false
+| shouldDisplayIntuitFooter    |   false    | Aggregators have the option of owning their own footer or have Intuit own the footer experience. By default, Aggregators owns the experience | false
 
 # How do I communicate with Intuit?
 
-Intuit will be iframing the Aggregator window. Communication will be done via `window.PostMessage`
+Intuit will be iframing the Aggregator window. Communication will be done via `window.postMessage`
 
 # how Do I send message via post message?
 
-```
-window.parent.postMessage(payload, url)
+```.jsx
+const idxMessage = {
+	...payload,
+}
+
+window.parent.postMessage({ idxMessage }, url)
 ```
 
 # Expected payload from Aggregator to Intuit
 
-`Authentication` screen:
+**NOTE** `enablePrimaryButton`, `primaryButtonContent` are only applicable when **Intuit** owns the footer experience. 
+
+### `Authentication` screen:
+
+Intuit expects a payload (added below) when the form in the authentication screen is ready. This is expected when all the required fields are met. Similarly, if a form gets invalid, Intuit expects a payload which informs them the form is disabled to proceed.
+
+![pass data](https://files-djycb3qzr-abanik0831usc.vercel.app/)
 
 ```
 {
-	enableSecondaryButton: true| false,
 	enablePrimaryButton: true| false,
-	isSecondaryButtonVisible: true| false,
 	height: string, // height of iframe window
-	width: string, // width of iframe window
-	screen <string>: 'authentication'
+	screenName <string>: 'authentication'
 }
 ```
 
-`Recaptcha` screen:
+### `Recaptcha` screen:
+
+Intuit expects a payload when a user has successfully validated recaptcha
+
+![recaptcha](https://files-1qhck38ef-abanik0831usc.vercel.app)
 
 ```
 {
-	enableSecondaryButton: true| false,
 	enablePrimaryButton: true| false,
 	height: string, // height of iframe window
-	width: string, // width of iframe window
-	screen <string>: 'recaptcha'
+	screenName <string>: 'recaptcha'
 }
 ```
 
-`MFA` screen:
+### `MFA` screen:
+
+Intuit expects a payload when the fields in the MFA screen is ready. This is expected when all the required fields are met. Similarly, if a form gets invalid, Intuit expects a payload which informs them the form is disabled to proceed.
+
+![MFA](https://files-l604xy51b-abanik0831usc.vercel.app)
 
 ```
 {
 	enablePrimaryButton: true| false,
 	primaryButtonContent: string,
 	height: string, // height of iframe window
-	width: string, // width of iframe window
-	screen <string>: 'MFA'
+	screenName <string>: 'MFA'
 }
 ```
 
-`Connecting` screen:
+### `Connecting` screen:
+
+Intuit expects a payload when the connection is in progress. `isConnectingScreen` will be required if *Intuit* is owning the footer experience.
+
+![Connecting](https://files-3fvttmf8s-abanik0831usc.vercel.app)
 
 ```
 {
 	isConnectingScreen: true,
 	height: string, // height of iframe window
-	width: string, // width of iframe window
-	screen <string>: 'connecting'
+	screenName <string>: 'connecting'
 }
 ```
 
-`Success` screen:
+### `Success` screen:
+
+Intuit expects a payload with the `response_token` when the connection is successfully accomplished.
 
 ```
 {
 	response_token: string,
-	screen <string>: 'success'
+	screenName <string>: 'success'
 }
 ```
 
-`Error` screen:
+### `Error` screen:
+
+Intuit expects a payload when the connection is not successfully established with the provider.
+![Error](https://files-n5p07orvm-abanik0831usc.vercel.app)
 
 ```
 {
 	error: Object {code, reason, other details},
 	height: string, // height of iframe window
-	width: string, // width of iframe window
-	screen <string>: 'error'
+	screenName <string>: 'error'
 }
 ```
 
-<h3>Payload from Widgets to Aggregator</h3>
+# Payload to handle button actions
 
-`onPrimaryButtonClick` (Continue):
+`payload` data required to inform the action user is currently undertaking.
+
+## Payload from Aggregators to Widgets
+
+### (applicable only when Aggregator owns the footer experience)
+
+**Aggregator**will pass the following `payload` to the **Intuit** indicating the action user has taken and from which screen.
+In the example below, `forward` indicates the user has clicked on `primary button` (continue) or to move forward in the connection process.
+
+`onPrimaryButtonClick` (**Continue**):
 
 ```
 navigate<string>: 'forward',
-screen: 'authentication' // pass current screen name
+screenName: 'authentication' // pass current screen name
 ```
 
-`onSecondaryButtonClick` (Back):
+`onSecondaryButtonClick` (**Back**):
+
+**Aggregator** will pass the following `payload` to the **Intuit** indicating the action user has taken and from which screen.
+In the example below, `back` indicates the user has clicked on `secondary button` (back) or to move to the previous screen in the connection process.
 
 ```
 navigate<string>: 'back',
-screen: 'authentication' // pass current screen name
+screenName: 'authentication' // pass current screen name
 ```
 
+## Payload from Widgets to Aggregator
+
+### (applicable only when Intuit owns the footer experience)
+
+**Intuit** will pass the following `payload` to the **Aggregator** indicating the action user has taken and from which screen.
+In the example below, `forward` indicates the user has clicked on `primary button` (continue) or to move forward in the connection process.
+
+`onPrimaryButtonClick` (**Continue**):
+
+```
+navigate<string>: 'forward',
+screenName: 'authentication' // pass current screen name
 ```
 
+`onSecondaryButtonClick` (**Back**):
+
+**Intuit** will pass the following `payload` to the **Aggregator** indicating the action user has taken and from which screen.
+In the example below, `back` indicates the user has clicked on `secondary button` (back) or to move to the previous screen in the connection process.
+
+```
+navigate<string>: 'back',
+screenName: 'authentication' // pass current screen name
 ```

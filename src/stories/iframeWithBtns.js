@@ -62,17 +62,11 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 
 	const handleIframeOnLoad = () => {
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
 		shouldHideSpinner(true)
-		// divRef.current.style.height = parseInt(String(height), 10) + parseInt('175px', 10) + 'px'
-		// divRef.current.style.height = parseInt(String(height), 10) - parseInt('1240px', 10) + 'px'
 	}
 
 	useEffect(() => {
 		iframeRef.current.style.height = height
-		iframeRef.current.style.width =  parseInt(String(width), 10) - parseInt('30px', 10) + 'px'
-
-		// divRef.current.style.height = '356px'
 	}, [height, width])
 
 	const color = (type) => {
@@ -134,6 +128,7 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 				</div>}
 				<div style={{ padding: '30px 30px 30px'}}>
 					<iframe
+						style={{ width: '100%' }}
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
