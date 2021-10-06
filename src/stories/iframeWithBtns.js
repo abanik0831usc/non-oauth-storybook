@@ -128,7 +128,7 @@ export const IframeWithBtns = ({ theme, isAggregatorScreenFirstInWidgets, iframe
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&url=${window.location.href}`}
 						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>

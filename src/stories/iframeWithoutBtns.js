@@ -167,7 +167,7 @@ export const IframeWithIntuitButtons = ({ theme, isAggregatorScreenFirstInWidget
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true`}
+						src={`${iframeUrl}?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&shouldDisplayIntuitFooter=true&url=${window.location.href}`}
 						frameBorder={showIframeBorder ? '1' : '0'}
 						scrolling="no"
 					/>

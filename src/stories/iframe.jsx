@@ -123,7 +123,7 @@ export const Iframe = ({ theme, isAggregatorScreenFirstInWidgets }) => {
 						title={"my awesome iframe"}
 						onLoad={handleIframeOnLoad}
 						ref={iframeRef}
-						src={`https://non-oauth.vercel.app?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}`}
+						src={`https://non-oauth.vercel.app?theme=${theme}&isAggregatorScreenFirstInWidgets=${isAggregatorScreenFirstInWidgets}&url=${window.location.href}`}
 						frameBorder="0"
 						scrolling="no"
 					/>
