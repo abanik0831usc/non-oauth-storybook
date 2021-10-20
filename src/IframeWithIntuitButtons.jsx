@@ -95,6 +95,11 @@ IntuitButtons.propTypes = {
 	 * update text of [Primary Button](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons)
 	 */
 	primaryButtonLabel: PropTypes.string,
+
+	/**
+	 * connection payload response from aggregators. Can be in any format
+	 */
+	response: PropTypes.any
 };
 
 IntuitButtons.defaultProps = {

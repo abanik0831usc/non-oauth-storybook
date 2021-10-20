@@ -73,6 +73,11 @@ AggregatorButtons.propTypes = {
 	 * Informs Aggregator or Intuit whether the user clicked [Secondary](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons) or [Primary Button](/?path=/docs/mdx-intuit-aggregator-integration--page#widget-buttons)
 	 */
 	navigate: PropTypes.oneOf(['forward', 'back']),
+
+	/**
+	 * connection payload response from aggregators. Can be in any format
+	 */
+	response: PropTypes.any
 };
 
 AggregatorButtons.defaultProps = {
