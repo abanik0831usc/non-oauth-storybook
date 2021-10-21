@@ -23,7 +23,7 @@ const handlePostMessage = (
 			data.currentScreen === 'error' && setIframeScreenStackSize(0)
 		} else {
 			console.log('getting data: ', data)
-			const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.navigate === 'back' && data.iframeScreenStackSize === 0) || (data.currentScreen === 'error' && data.navigate === 'back' && data.iframeScreenStackSize === 0)
+			const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.navigate === 'back') || (data.currentScreen === 'error' && data.navigate === 'back')
 			if (navigateToWidgetsInitialScreen) {
 				setIframeScreenStackSize(data.iframeScreenStackSize)
 				debugger
