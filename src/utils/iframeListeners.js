@@ -10,7 +10,13 @@ const handlePostMessage = (
 
 	//console.log(e.data.idxMessage)
 	if (e.data.idxMessage) {
-		const data = JSON.parse(e.data.idxMessage)
+		let data
+		if (typeof e.data.idxMessage === 'string') {
+			data = JSON.parse(e.data.idxMessage)
+		} else {
+			data = e.data.idxMessage
+		}
+
 
 		console.log(`payload from iframe for screen ${data.currentScreen.toUpperCase()}`, data)
 		setState(data)
