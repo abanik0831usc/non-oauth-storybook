@@ -43,6 +43,7 @@ Intuit will be iframing the Aggregator window. Communication will be done via `w
 const idxMessage = {
 	...payload,
 }
+```
 
 You have the option of sending the response as a `String` or as an `Object`.
 
@@ -52,8 +53,11 @@ To send it as a `String` - you'll require to `stringify` the response:
 JSON.stringify(idxMessage)
 ```
 
-To send it as an `Object` - the response can be send as is.
+To send it as an `Object` - the response can be sent as is.
 
+to `post` the message to the parent window:
+
+```
 window.parent.postMessage({ idxMessage }, url)
 ```
 
