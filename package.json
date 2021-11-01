@@ -24,7 +24,8 @@
     "build-storybook": "build-storybook -s public",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "chromatic": "npx chromatic --project-token=40e5852622e1"
+    "chromatic": "npx chromatic --project-token=40e5852622e1",
+    "deploy-storybook": "storybook-to-aws-s3"
   },
   "eslintConfig": {
     "extends": [

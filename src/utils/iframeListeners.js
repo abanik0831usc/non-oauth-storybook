@@ -17,18 +17,17 @@ const handlePostMessage = (
 			data = e.data.idxMessage
 		}
 
-
-		console.log(`payload from iframe for screen ${data.currentScreen.toUpperCase()}`, data)
 		setState(data)
 
 		data.height && setHeight(data.height)
 		data.width && setWidth(data.width)
 
+		console.log(`getting data from iframe aggregator screen name ${data.currentScreen}: `, data)
+
 		if (shouldDisplayIntuitFooter) {
 			data.currentScreen === 'connecting' && setIframeScreenStackSize(1)
 			data.currentScreen === 'error' && setIframeScreenStackSize(0)
 		} else {
-			console.log('getting data: ', data)
 			const navigateToWidgetsInitialScreen = (data.currentScreen === 'authentication' && data.navigate === 'back') || (data.currentScreen === 'error' && data.navigate === 'back')
 			if (navigateToWidgetsInitialScreen) {
 				setIframeScreenStackSize(data.iframeScreenStackSize)

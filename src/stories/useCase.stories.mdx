@@ -122,14 +122,12 @@ Intuit expects a payload when the connection is in progress. `isConnectingScreen
 }
 ```
 
-### `Success` screen:
-
-Intuit expects a payload with the `code` when the connection is successfully accomplished.
+##### Once the connection is successfully accomplished - Intuit expects aggregators to return the payload with `code`. Sample format below:
 
 ```
 {
-	code: string,
-	screenName <string>: 'success'
+	code: string, // code of the authenticated provider
+	screenName <string>: 'connecting'
 }
 ```
 
@@ -145,6 +143,19 @@ Intuit expects a payload when the connection is not successfully established wit
 	screenName <string>: 'error'
 }
 ```
+
+
+### `Success` screen: (Not applicable unless specified separately during Aggregator contract)
+
+Intuit expects a payload with the `code` when the connection is successfully accomplished.
+
+```
+{
+	height: string, // height of iframe window
+	screenName <string>: 'success'
+}
+```
+
 
 # Payload to handle button actions
 
